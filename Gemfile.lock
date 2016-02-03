@@ -7,6 +7,12 @@ GIT
       kazoo-ruby (~> 0.4.0)
       poseidon (~> 0.0.5)
 
+GIT
+  remote: git://github.com/tapjoy/poseidon.git
+  revision: 04eea154b262eb57e9df5524bd7e96b21e2d576c
+  specs:
+    poseidon (0.0.5.5)
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -16,7 +22,6 @@ GEM
       thor (~> 0.19.1)
       zookeeper (~> 1.4)
     multi_json (1.11.2)
-    poseidon (0.0.5)
     pusher (0.16.0)
       httpclient (~> 2.7)
       multi_json (~> 1.0)
@@ -31,6 +36,7 @@ PLATFORMS
 DEPENDENCIES
   geoip
   kafka-consumer!
+  poseidon!
   pusher
 
 BUNDLED WITH

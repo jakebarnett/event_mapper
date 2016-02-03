@@ -1,3 +1,5 @@
+require "bundler/setup"
+
 require "kafka/consumer"
 require 'geoip'
 require 'pusher'
@@ -17,7 +19,9 @@ consumer.each do |message|
   payload = JSON.parse(message.value)
   ip = payload["request"]["REMOTE_ADDR"]
   c = GeoIP.new('GeoLiteCity.dat').city(ip)
-  data = "#{c.latitude}, #{c.longitude}, #{c.city_name} - #{c.country_name}"
+  unless c.city_name.empty?
+    data = "#{c.latitude}, #{c.longitude}, #{c.city_name} - #{c.country_name}"
+  end
   puts data
   Pusher.trigger('test_channel', 'my_event', {
     latitude: c.latitude,

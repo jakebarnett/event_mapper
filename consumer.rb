@@ -20,13 +20,16 @@ consumer.each do |message|
   ip = payload["request"]["REMOTE_ADDR"]
   c = GeoIP.new('GeoLiteCity.dat').city(ip)
   unless c.city_name.empty?
-    data = "#{c.latitude}, #{c.longitude}, #{c.city_name} - #{c.country_name}"
+    data = "#{c.latitude}, #{c.longitude}, #{c.city_name} - #{c.country_name} - #{c.region_name}"
   end
   puts data
-  Pusher.trigger('test_channel', 'my_event', {
-    latitude: c.latitude,
-    longitude: c.longitude,
-    city: c.city_name,
-    country: c.country_name
+  unless c.city_name.empty?
+    Pusher.trigger('test_channel', 'my_event', {
+      latitude: c.latitude,
+      longitude: c.longitude,
+      city: c.city_name,
+      country: c.country_code3,
+      state: c.region_name
     })
+  end
 end

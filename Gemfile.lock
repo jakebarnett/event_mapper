@@ -1,0 +1,37 @@
+GIT
+  remote: git://github.com/robotblake/kafka-consumer.git
+  revision: 05be7722d852fc50be81eb8257654e9b7638eb73
+  branch: fixes
+  specs:
+    kafka-consumer (0.1.2)
+      kazoo-ruby (~> 0.4.0)
+      poseidon (~> 0.0.5)
+
+GEM
+  remote: https://rubygems.org/
+  specs:
+    geoip (1.6.1)
+    httpclient (2.7.1)
+    kazoo-ruby (0.4.0)
+      thor (~> 0.19.1)
+      zookeeper (~> 1.4)
+    multi_json (1.11.2)
+    poseidon (0.0.5)
+    pusher (0.16.0)
+      httpclient (~> 2.7)
+      multi_json (~> 1.0)
+      pusher-signature (~> 0.1.8)
+    pusher-signature (0.1.8)
+    thor (0.19.1)
+    zookeeper (1.4.11)
+
+PLATFORMS
+  ruby
+
+DEPENDENCIES
+  geoip
+  kafka-consumer!
+  pusher
+
+BUNDLED WITH
+   1.10.6

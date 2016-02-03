@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+      <script src="https://js.pusher.com/3.0/pusher.min.js"></script>
+      <script>
+        // Enable pusher logging - don't include this in production
+        Pusher.log = function(message) {
+          if (window.console && window.console.log) {
+            window.console.log(message);
+          }
+        };
+
+        var pusher = new Pusher("5fb1a020dfe5bdf9ae37", {
+          encrypted: true
+        });
+
+        var channel = pusher.subscribe('test_channel');
+        channel.bind('my_event', function(data) {
+        });
+    </script>
+  </head>
+  <body>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/d3/3.5.3/d3.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/topojson/1.6.9/topojson.min.js"></script>
+    <script src="node_modules/datamaps/dist/datamaps.world.min.js"></script>
+    <div id="map_bombs" style="position: relative; width: 1500px; height: 900px;"></div>
+    <script>
+        // var map = new Datamap({element: document.getElementById('container')});
+
+        var bombMap = new Datamap({
+              element: document.getElementById('map_bombs'),
+              scope: 'world',
+              geographyConfig: {
+                  popupOnHover: false,
+                  highlightOnHover: false
+              },
+              fills: {
+                  defaultFill: '#191817'
+              },
+              data: {
+                  'RUS': {fillKey: 'RUS'},
+                  'PRK': {fillKey: 'PRK'},
+                  'PRC': {fillKey: 'PRC'},
+                  'IND': {fillKey: 'IND'},
+                  'GBR': {fillKey: 'GBR'},
+                  'FRA': {fillKey: 'FRA'},
+                  'PAK': {fillKey: 'PAK'},
+                  'USA': {fillKey: 'USA'}
+              }
+            });
+
+        var totalEvents = 0
+        channel.bind('my_event', function(data){
+          // console.log("*********************" + data.latitude)
+          var lat = data.latitude
+          var lon = data.longitude
+          bombs = [{
+            radius: 12,
+            latitude: lat,
+            longitude: lon
+          }]
+          // console.log(bomb[0])
+          bombMap.bubbles(bombs, {});
+
+        })
+    </script>
+  </body>
+</html>

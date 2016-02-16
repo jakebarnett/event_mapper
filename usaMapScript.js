@@ -23,7 +23,7 @@
       return '#FD9899'
     } else if (percent > 0.01) {
       return '#FECCCD'
-    } else if(percent > 0.0000){
+    } else if(percent > 0){
       return '#777672'
     }
   }
@@ -35,7 +35,7 @@
     var lon = data.longitude;
     var state = data.state;
     var bombs = [{
-      radius: 7,
+      radius: 25,
       latitude: lat,
       longitude: lon
     }]
@@ -46,7 +46,7 @@
 
     usaMap.bubbles(bombs, {});
     stateEventCounter += 1
-    if (stateEventCounter > 25) {
+    // if (stateEventCounter > 25) {
       console.log('***************updating color*****************')
       var total = sum(seenStates)
       var updateHash = {}
@@ -56,6 +56,6 @@
       console.log(updateHash)
       usaMap.updateChoropleth(updateHash);
       stateEventCounter = 0
-    }
+    // }
   })
 })()

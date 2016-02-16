@@ -35,21 +35,23 @@
   var seenCountries = {}
   var eventCounter = 0
   channel.bind('my_event', function(data){
-    var lat = data.latitude
-    var lon = data.longitude
-    var country = data.country
-    var bombs = [{
-      radius: 12,
-      latitude: lat,
-      longitude: lon
-    }]
-    if (country != "USA") {
-      seenCountries[country] ? seenCountries[country] += 1 : seenCountries[country] = 1
+    if (data.country != "USA") {
+      var lat = data.latitude
+      var lon = data.longitude
+      var country = data.country
+      var bombs = [{
+        radius: 10,
+        latitude: lat,
+        longitude: lon
+      }]
+      if (country != "USA") {
+        seenCountries[country] ? seenCountries[country] += 1 : seenCountries[country] = 1
+      }
+      worldMap.bubbles(bombs, {});
     }
 
-    worldMap.bubbles(bombs, {});
-    eventCounter += 1
-    if (eventCounter > 25) {
+    // eventCounter += 1
+    // if (eventCounter > 25) {
       total = sum(seenCountries)
       updateHash = {}
       $.each(seenCountries, function(key, value) {
@@ -57,6 +59,6 @@
       });
       worldMap.updateChoropleth(updateHash);
       eventCounter = 0
-    }
+    // }
   })
 })()
